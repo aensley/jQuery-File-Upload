@@ -1,17 +1,14 @@
 (function(w, d){
 	"use strict";
 	var defaults = {
-			height: 'auto',
 			maxHeight: 800,
 			minHeight: 300,
-			width: 'auto',
 			maxWidth: 1200,
 			minWidth: 360,
-			modal: false,
-			autoOpen: true,
 			closeOnEscape: false,
 			title: 'File Manager',
 			dialogClass: 'iframeDialog',
+			open: function(){$('.ui-dialog-titlebar-close').blur();},
 			close: function(){$(this).remove();},
 		},
 		containerSelector = '#file-upload-dialog-container',
