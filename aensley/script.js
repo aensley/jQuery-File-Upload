@@ -22,7 +22,7 @@ $(function () {
 		dropZone: $(document),
 		prependFiles: true,
 		drop: hideDropoverMessage,
-		added: function (e, data) {
+		added: function () {
 			$filesScroll.scrollTop(0);
 			hideDropoverMessage();
 		},
