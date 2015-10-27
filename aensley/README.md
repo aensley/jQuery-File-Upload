@@ -9,6 +9,14 @@ This upload manager works by launching a dialog window from a link on any page. 
 
 ## Setup
 
+### Clone
+
+Clone this repository with:
+
+````
+git clone https://github.com/aensley/jQuery-File-Upload.git
+````
+
 ### Build
 
  1. From a command line, navigate to this directory (`aensley/`)
