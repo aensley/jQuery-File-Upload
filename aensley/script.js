@@ -4,8 +4,10 @@ $(function () {
 		$dropoverMessage = $('#dropoverMessage'),
 		$fileuploadButtonbar = $('.fileupload-buttonbar'),
 		$filesScroll = $('#filesScroll'),
+		dragTimer,
 		hideDropoverMessage = function (){
-			$dropoverMessage.css('display', 'none');
+			clearTimeout(dragTimer);
+			dragTimer = setTimeout(function(){$dropoverMessage.hide();}, 85);
 		},
 		layoutListener = function(){
 			$filesScroll.height(
@@ -28,8 +30,12 @@ $(function () {
 		},
 	});
 
-	$(document).on('dragover', function(){
-		$dropoverMessage.css('display', 'table-cell');
+	$(document).on('dragover', function(e){
+		var dt = e.originalEvent.dataTransfer;
+		if (dt.types && ($.inArray('Files', dt.types) > -1)) {
+			$dropoverMessage.show();
+			window.clearTimeout(dragTimer);
+		}
 	}).on('dragleave', hideDropoverMessage);
 
 	// Load existing files:
