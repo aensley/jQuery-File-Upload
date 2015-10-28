@@ -4,7 +4,7 @@
 			maxHeight: 800,
 			minHeight: 300,
 			maxWidth: 1200,
-			minWidth: 360,
+			minWidth: 425,
 			closeOnEscape: false,
 			title: 'File Manager',
 			dialogClass: 'iframeDialog',

@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 		copy: {
 			dist: {
 				files: {
-					'dist/UploadHandler.php': '../server/php/UploadHandler.php',
+					'dist/UploadHandler.php': 'UploadHandler.php',
 					'dist/files/.htaccess': '../server/php/files/.htaccess',
 					'dist/loading.gif': '../img/loading.gif',
 					'dist/progressbar.gif': '../img/progressbar.gif',
