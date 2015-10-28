@@ -17,6 +17,7 @@
 	function addStyleSheet() {
 		$('head').append(
 			'<style>'
+				+ '.' + defaults.dialogClass + '{box-shadow:0 0 20px rgba(0,0,0,.4);}'
 				+ '.' + defaults.dialogClass + ' .ui-dialog-content{overflow:hidden !important;padding:0 !important;}'
 				+ '' + containerSelector + '{font-size:12px !important;}'
 			+ '</style>'
