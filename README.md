@@ -68,7 +68,7 @@ The user interface of all versions except the jQuery UI version is built with [B
 The repository also includes the [jQuery XDomainRequest Transport plugin](https://github.com/blueimp/jQuery-File-Upload/blob/master/js/cors/jquery.xdr-transport.js), which enables limited cross-domain AJAX requests in Microsoft Internet Explorer 8 and 9 (IE 10 supports cross-domain XHR requests).  
 The XDomainRequest object allows GET and POST requests only and doesn't support file uploads. It is used on the [Demo](https://blueimp.github.io/jQuery-File-Upload/) to delete uploaded files from the cross-domain demo file upload service.
 
-### Custom Backend's
+### Custom Backends
 
 You can add support for various backends by adhering to the specification [outlined here](https://github.com/blueimp/jQuery-File-Upload/wiki/JSON-Response).
 
@@ -104,4 +104,4 @@ This project is actively maintained, but there is no official support channel.
 If you have a question that another developer might help you with, please post to [Stack Overflow](http://stackoverflow.com/questions/tagged/blueimp+jquery+file-upload) and tag your question with `blueimp jquery file upload`.
 
 ## License
-Released under the [MIT license](http://www.opensource.org/licenses/MIT).
+Released under the [MIT license](https://opensource.org/licenses/MIT).
