@@ -3,9 +3,23 @@ For an in-depth understanding of the potential security risks of providing file 
 
 To securely setup the project to serve uploaded files, please refer to the sample [Secure file upload serving configurations](#secure-file-upload-serving-configurations).
 
+To mitigate potential vulnerabilities in image processing libraries, please refer to the [Secure image processing configurations](#secure-image-processing-configurations).
+
 By default, all sample upload handlers allow only upload of image files, which mitigates some attack vectors, but should not be relied on as the only protection.
 
-Please also have a look at the [list of fixed vulnerabilities](VULNERABILITIES.md) in jQuery File Upload.
+Please also have a look at the [list of fixed vulnerabilities](VULNERABILITIES.md) in jQuery File Upload, which relates mostly to the sample server-side upload handlers and how they have been configured.
+
+## Purpose of this project
+Please note that this project is not a complete file management product, but foremost a client-side file upload library for [jQuery](https://jquery.com/).  
+The server-side sample upload handlers are just examples to demonstrate the client-side file upload functionality.
+
+To make this very clear, there is **no user authentication** by default:
+* **everyone can upload files**
+* **everyone can delete uploaded files**
+
+In some cases this can be acceptable, but for most projects you will want to extend the sample upload handlers to integrate user authentication, or implement your own.
+
+It is also up to you to configure your Webserver to securely serve the uploaded files, e.g. using the [sample server configurations](#secure-file-upload-serving-configurations).
 
 ## Mitigations against file upload risks
 
@@ -40,6 +54,12 @@ Please note that the detection of file types in the sample file upload handlers 
 It does not protect at all from exploiting vulnerabilities in image display programs, nor from users renaming file extensions to inadvertently execute the contained malicious code.
 
 ## Secure file upload serving configurations
+The following configurations serve uploaded files as static files with the proper headers as [mitigation against file upload risks](#mitigations-against-file-upload-risks).  
+Please do not simply copy&paste these configurations, but make sure you understand what they are doing and that you have implemented them correctly.
+
+> Always test your own setup and make sure that it is secure!
+
+e.g. try uploading PHP scripts (as "example.php", "example.php.png" and "example.png") to see if they get executed by your Webserver.
 
 ### Apache config
 Add the following directive to the Apache config, replacing the directory path with the absolute path to the upload directory:
@@ -90,4 +110,24 @@ location ^~ /path/to/project/server/php/files {
         add_header X-Content-Type-Options 'nosniff';
     }
 }
+```
+
+## Secure image processing configurations
+The following configuration mitigates [potential image processing vulnerabilities with ImageMagick](VULNERABILITIES.md#potential-vulnerabilities-with-php-imagemagick) by limiting the attack vectors to a small subset of image types (`GIF/JPEG/PNG`).
+
+Please also consider using alternative, safer image processing libraries like [libvips](https://github.com/libvips/libvips) or [imageflow](https://github.com/imazen/imageflow).
+
+## ImageMagick config
+It is recommended to disable all non-required ImageMagick coders via [policy.xml](https://wiki.debian.org/imagemagick/security).  
+To do so, locate the ImageMagick `policy.xml` configuration file and add the following policies:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ... -->
+<policymap>
+  <!-- ... -->
+  <policy domain="delegate" rights="none" pattern="*" />
+  <policy domain="coder" rights="none" pattern="*" />
+  <policy domain="coder" rights="read | write" pattern="{GIF,JPEG,PNG}" />
+</policymap>
 ```
