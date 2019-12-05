@@ -54,6 +54,8 @@
       // as the user clicks on the start buttons. To enable automatic
       // uploads, set the following option to true:
       autoUpload: false,
+      // The class to show/hide UI elements:
+      showElementClass: 'in',
       // The ID of the upload template:
       uploadTemplateId: 'template-upload',
       // The ID of the download template:
@@ -604,18 +606,19 @@
         node.hasClass('fade') &&
         node.is(':visible')
       ) {
+        var transitionEndHandler = function(e) {
+          // Make sure we don't respond to other transition events
+          // in the container element, e.g. from button elements:
+          if (e.target === node[0]) {
+            node.unbind($.support.transition.end, transitionEndHandler);
+            dfd.resolveWith(node);
+          }
+        };
         node
-          .bind($.support.transition.end, function(e) {
-            // Make sure we don't respond to other transitions events
-            // in the container element, e.g. from button elements:
-            if (e.target === node[0]) {
-              node.unbind($.support.transition.end);
-              dfd.resolveWith(node);
-            }
-          })
-          .toggleClass('in');
+          .bind($.support.transition.end, transitionEndHandler)
+          .toggleClass(this.options.showElementClass);
       } else {
-        node.toggleClass('in');
+        node.toggleClass(this.options.showElementClass);
         dfd.resolveWith(node);
       }
       return dfd;
